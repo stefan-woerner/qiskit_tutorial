@@ -18,6 +18,8 @@
 import numpy as np
 import scipy
 from scipy.linalg import expm
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn import datasets
@@ -26,7 +28,7 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.decomposition import PCA
 
 
-def ad_hoc_data(training_size, test_size, n, gap, PLOT_DATA):
+def ad_hoc_data(training_size, test_size, n, gap, plot_data = False):
     class_labels = [r'A', r'B']
     if n == 2:
         N = 100
@@ -145,7 +147,7 @@ def ad_hoc_data(training_size, test_size, n, gap, PLOT_DATA):
         test_input = {key: (sample_train[label_train == k, :])[training_size:(
             training_size+test_size)] for k, key in enumerate(class_labels)}
 
-        if PLOT_DATA:
+        if plot_data:
             img = plt.imshow(np.asmatrix(sample_Total).T, interpolation='nearest',
                              origin='lower', cmap='copper', extent=[0, 2*np.pi, 0, 2*np.pi])
             plt.show()
@@ -212,7 +214,7 @@ def ad_hoc_data(training_size, test_size, n, gap, PLOT_DATA):
         test_input = {key: (sample_train[label_train == k, :])[training_size:(
             training_size+test_size)] for k, key in enumerate(class_labels)}
 
-        if PLOT_DATA:
+        if plot_data:
 
             sample_total_A = np.asarray(sample_total_A)
             sample_total_B = np.asarray(sample_total_B)
@@ -292,5 +294,5 @@ def Wine(training_size, test_size, n, PLOT_DATA):
     training_input.pop(class_labels[-1])
     test_input.pop(class_labels[-1])
     class_labels = class_labels[:2]
-		
     return training_input, test_input, class_labels
+
